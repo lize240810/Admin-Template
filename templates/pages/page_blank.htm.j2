@@ -1,0 +1,40 @@
+空白 页
+{# form-components 表单组件 #}
+{% extends "page-layout.htm.j2" %}
+  
+
+
+{% block style %}
+  {{ super() }}
+{% endblock %}
+
+
+
+{% block app_title %}
+  <div class="app-title">
+    <div>
+      <h1><i class="fa fa-dashboard"></i> 空白 页</h1>
+      <p>在这里开始一段美丽的旅程</p>
+    </div>
+    <ul class="app-breadcrumb breadcrumb">
+      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+      <li class="breadcrumb-item"><a href="#">空白 页</a></li>
+    </ul>
+  </div>
+{% endblock %}
+
+
+{% block app_body %}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">创建一个漂亮的仪表板</div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block script %}
+    {{ super() }}
+{% endblock %}

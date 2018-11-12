@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="description" content="微信订阅号运营平台">
+    <title>{% block title %}微信订阅号运营平台{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="/static/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/page-layout.css">
+    {% block style %}
+    {% endblock %}
+  </head>
+
+  <body class="app sidebar-mini rtl">
+    <!-- 头部-->
+    {% include 'includes/header.htm.j2' ignore missing with context %}
+    <!-- 工具指导菜单-->
+    {% include 'includes/sidebar.htm.j2' ignore missing with context %}
+    <!-- 工具 -->
+    <main class="app-content">
+      <!-- 工具 标识头-->
+      {% block app_title %}
+        {% include 'includes/app_title.htm.j2' ignore missing with context %}
+      {% endblock %}
+
+      <!-- 工具 内容-->
+      {% block app_body %}
+        <h1> 内容 </h1>
+      {% endblock %}
+    </main>
+    <!-- Essential javascripts for application to work-->
+    <script src="static/js/jquery-3.2.1.min.js"></script>
+    <script src="static/js/popper.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/main.js"></script>
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="static/js/plugins/pace.min.js"></script>
+    <!-- Page specific javascripts-->
+    {% block script %}
+      <script type="text/javascript">
+          if(!window.GLOBAL) {
+            window.GLOBAL = {};
+          }
+          // 标准上下文: http://docs.jinkan.org/docs/flask/templating.html#id2
+          window.GLOBAL.METHOD = "{{ request.method }}"; // from flask import request; request.method
+          window.GLOBAL.DEBUG = "{{ config.DEBUG }}"; // app.config['DEBUG']
+          window.GLOBAL.PAGEID = "{{ page_id | default('') }}" // 模板id 
+          $(document).ready(function() {
+          var $sidebar = $('.app-sidebar .app-menu');
+          var $li = $sidebar.find('li[data-page-id="' + GLOBAL.PAGEID + '"]');
+          if($li.children('a.app-menu__item').length > 0) {
+            // 当前页为一级页面
+            // 一级链接
+            $li.children('a.app-menu__item').addClass('active');
+          }
+          else {
+            // 当前页为二级页面
+            // 二级链接
+            $li.children('a.treeview-item').addClass('active');
+            // 一级链接
+            var $li_top = $li.closest('li.treeview');
+            $li_top.children('a.app-menu__item').addClass('active');
+            $li_top.addClass('is-expanded');
+          }
+        });
+      </script>
+    {% endblock %}
+  </body>
+</html>
